@@ -1,0 +1,6 @@
+#menuButton {
+  transition: transform 0.2s ease;
+}
+#menuButton:hover {
+  transform: scale(1.1);
+}

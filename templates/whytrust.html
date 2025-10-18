@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SideJobBanda - Trusted Services</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #0f1a2a;
+    color: #eee;
+  }
+
+  /* Why Trust Us Section */
+  .why-trust-us {
+    background-color: #1a2b4a;
+    color: #f5f5f5;
+    padding: 60px 5%;
+    text-align: center;
+  }
+  .why-trust-us h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffc107;
+    text-shadow: 1px 1px 3px #000;
+  }
+  .why-trust-us p {
+    color: #ddd;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Stats Card */
+  .stats-card {
+    background: rgba(255,255,255,0.12);
+    padding: 35px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 420px;
+    margin: 0 auto 50px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .stats-title { font-size: 1.1rem; font-weight: 700; }
+  .stats-badge {
+    background: #ffc107; color: #000;
+    padding: 6px 14px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .stats-number {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #ffc107;
+    margin: 20px 0;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    text-shadow: 2px 2px 4px #000;
+  }
+  .stats-label { font-size: 1rem; color: #fff; margin-bottom: 20px; }
+  .stats-quote {
+    background: rgba(255,255,255,0.1);
+    padding: 18px;
+    border-radius: 12px;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 1rem;
+    color: #fff;
+  }
+  .quote-author { font-size: 0.9rem; color: #ffc107; margin-top: 5px; }
+
+  /* Pie Chart */
+  .pie-chart-container { width: 140px; height: 140px; position: relative; margin: 25px auto; }
+  .pie-chart-svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .pie-bg { fill: none; stroke: #333; stroke-width: 14; }
+  .pie-fill {
+    fill: none;
+    stroke: #ffc107;
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-dasharray: 339.29;
+    stroke-dashoffset: 339.29;
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+  .pie-fill.animate { stroke-dashoffset: 13.57; }
+  .pie-center {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem; font-weight: bold; color: #ffc107;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto 60px;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.12);
+    padding: 28px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+  .feature-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.18); }
+  .feature-icon { width: 55px; height: 55px; margin-bottom: 15px; }
+  .feature-title { font-size: 1.3rem; margin-bottom: 10px; color: #ffc107; text-shadow: 1px 1px 3px #000; }
+  .feature-desc { font-size: 1rem; color: #eee; line-height: 1.4; }
+
+  /* Testimonials */
+  .testimonials { padding: 60px 5%; text-align: center; background-color: #11203b; }
+  .testimonials h2 { font-size: 2.5rem; margin-bottom: 10px; color: #ffc107; text-shadow: 1px 1px 3px #000; }
+  .testimonials p { color: #ddd; font-size: 1.1rem; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+
+  .testimonial-wrapper { overflow: hidden; position: relative; max-width: 1000px; margin: 0 auto; }
+  .testimonial-carousel {
+    display: flex;
+    animation: scrollTestimonials 20s linear infinite;
+  }
+  @keyframes scrollTestimonials {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .testimonial-card {
+    min-width: 300px;
+    margin: 0 15px;
+    background: rgba(255,255,255,0.12);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-align: left;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  }
+  .testimonial-quote { font-style: italic; font-size: 1rem; margin-bottom: 10px; line-height: 1.5; }
+  .testimonial-author { font-weight: bold; font-size: 1rem; color: #ffc107; }
+  .testimonial-role { font-size: 0.85rem; color: #ddd; margin-bottom: 10px; }
+  .stars { color: #ffc107; font-size: 1rem; }
+
+  .testimonial-wrapper:hover .testimonial-carousel {
+    animation-play-state: paused;
+  }
+</style>
+</head>
+<body>
+
+<section class="why-trust-us" id="why-trust-us">
+  <h2>Mengapa SideJobBanda Dipercaya oleh Warga Banda Aceh?</h2>
+  <p>Platform kami didesain untuk memberikan rasa aman bagi klien sekaligus peluang penghasilan tambahan yang stabil bagi Mitra. Kami beroperasi dengan standar nasional namun fokus pada karakter lokal Banda Aceh.</p>
+
+  <div class="stats-card" id="stats-card">
+    <div class="stats-header">
+      <span class="stats-title">STATISTIK 2025</span>
+      <span class="stats-badge">RESPONS &lt; 15 MENIT</span>
+    </div>
+
+    <div class="pie-chart-container">
+      <svg class="pie-chart-svg" viewBox="0 0 120 120">
+        <circle class="pie-bg" cx="60" cy="60" r="54"></circle>
+        <circle class="pie-fill" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <div class="pie-center">96%</div>
+    </div>
+
+    <div class="stats-number" id="stats-number">96%</div>
+    <div class="stats-label">Klien puas dengan pengalaman pertama mereka</div>
+
+    <div class="stats-quote">
+      “Supir profesional dan komunikatif. Sangat membantu saat saya ada kunjungan bisnis ke luar kota.”
+      <div class="quote-author">— Rahmat, Banda Aceh | Klien pertama SideJobBanda</div>
+    </div>
+
+    <a href="#testimonials" class="view-more-btn">Lihat Testimoni Lain →</a>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/verif.png') }}" alt="100% Mitra Terverifikasi" class="feature-icon">
+      <h3 class="feature-title">100% Mitra Terverifikasi</h3>
+      <p class="feature-desc">Seleksi dokumen, pelatihan layanan, dan pengecekan latar belakang yang ketat.</p>
+    </div>
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/jadwal.png') }}" alt="Jadwal Fleksibel" class="feature-icon">
+      <h3 class="feature-title">Jadwal Fleksibel</h3>
+      <p class="feature-desc">Pesan layanan mulai dari part-time hingga harian penuh.</p>
+    </div>
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/money.png') }}" alt="Harga Transparan" class="feature-icon">
+      <h3 class="feature-title">Harga Transparan</h3>
+      <p class="feature-desc">Tanpa biaya tersembunyi, semua harga terlihat di awal.</p>
+    </div>
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/centang.png') }}" alt="Garansi Kepuasan Pelanggan" class="feature-icon">
+      <h3 class="feature-title">Garansi Kepuasan Pelanggan</h3>
+      <p class="feature-desc">Jika hasil tidak sesuai, kami siap memberikan kompensasi.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <h2>Cerita Nyata dari Klien dan Mitra di Banda Aceh</h2>
+  <p>Kami mengumpulkan masukan setiap selesai layanan untuk memastikan mutu SideJobBanda selalu di atas standar.</p>
+
+  <div class="testimonial-wrapper">
+    <div class="testimonial-carousel">
+      <!-- Semua testimonial hardcode -->
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Tim SideJobBanda selalu datang tepat waktu. Rumah kos saya jadi bersih tanpa harus mengawasi satu per satu.”</div>
+        <div class="testimonial-author">Ghazy</div>
+        <div class="testimonial-role">Klien Home Cleaning</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Mitra yang mengantar barang saya sangat ramah, sopan, dan on time sesuai janji. Ini bukan sekadar layanan antar jemput biasa, tapi layanan yang terjamin dan terpercaya.”</div>
+        <div class="testimonial-author">Cut Nadya</div>
+        <div class="testimonial-role">Klien Antar Jemput Barang</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk memperbaiki mesin cuci yang rusak di rumah.”</div>
+        <div class="testimonial-author">Dimas</div>
+        <div class="testimonial-role">Klien Service</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk mencari babysitter di rumah.”</div>
+        <div class="testimonial-author">Syarif</div>
+        <div class="testimonial-role">Klien Babysitter</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk mencari babysitter di rumah.”</div>
+        <div class="testimonial-author">Mega</div>
+        <div class="testimonial-role">Klien Cuci Gosok Baju</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk mencari babysitter di rumah.”</div>
+        <div class="testimonial-author">Ahmad</div>
+        <div class="testimonial-role">Klien Supir</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <!-- Duplicate untuk loop -->
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Tim SideJobBanda selalu datang tepat waktu. Rumah kos saya jadi bersih tanpa harus mengawasi satu per satu.”</div>
+        <div class="testimonial-author">Ghazy</div>
+        <div class="testimonial-role">Klien Home Cleaning</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Mitra yang mengantar barang saya sangat ramah, sopan, dan on time sesuai janji. Ini bukan sekadar layanan antar jemput biasa, tapi layanan yang terjamin dan terpercaya.”</div>
+        <div class="testimonial-author">Cut Nadya</div>
+        <div class="testimonial-role">Klien Antar Jemput Barang</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk memperbaiki mesin cuci yang rusak di rumah.”</div>
+        <div class="testimonial-author">Dimas</div>
+        <div class="testimonial-role">Klien Service</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu ribet untuk mencari babysitter di rumah.”</div>
+        <div class="testimonial-author">Syarif</div>
+        <div class="testimonial-role">Klien Babysitter</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya sedang mencari supir kesana kemari tidak kunjung dapat, namun dengan platform ini semua dapat teratasi.”</div>
+        <div class="testimonial-author">Ahmad</div>
+        <div class="testimonial-role">Klien Supir</div>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-quote">“Saya sangat puas dengan tim SideJobBanda karena saya tidak perlu mencuci dan menggosok baju sendiri lagi.”</div>
+        <div class="testimonial-author">Mega</div>
+        <div class="testimonial-role">Klien Cuci Gosok Baju</div>
+        <div class="stars">★★★★★</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelector('.pie-fill').classList.add('animate');
+    setTimeout(() => {
+      document.getElementById('stats-number').style.opacity = '1';
+      document.getElementById('stats-number').style.transform = 'scale(1)';
+    }, 800);
+  });
+</script>
+
+</body>
+</html>

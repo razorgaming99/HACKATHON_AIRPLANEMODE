@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SideJobBanda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a2e0e6df4a.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="bg-white text-gray-900 font-sans">
+    {% include 'navbar.html' %}
+
+        <section 
+        id="home"
+        class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden"
+      >
+        <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000"
+          style="background-image: url('{{ url_for('static', filename='images/bg1.jpg') }}');">
+        </div>
+
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+
+        <div class="relative z-10 max-w-3xl px-6">
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            Bebaskan Waktu Anda. <br />
+            Serahkan Tugas Rumah Tangga pada Ahlinya.
+          </h2>
+          <p class="text-lg mb-8 text-gray-200">
+            Satu platform untuk memesan tenaga profesional terverifikasi, dari 
+            bersih-bersih hingga supir pribadi. SideJobBanda memastikan layanan 
+            higienis, aman, dan transparan.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="#layanan" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full transition">Lihat Layanan</a>
+            <a href="#aiassist" class="border border-white hover:bg-white hover:text-blue-700 font-semibold px-6 py-2 rounded-full transition">AI Assist</a>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        const images = [
+          "{{ url_for('static', filename='images/bg1.jpg') }}",
+          "{{ url_for('static', filename='images/bg2.jpg') }}",
+          "{{ url_for('static', filename='images/bg3.jpg') }}"
+        ];
+        let index = 0;
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          document.getElementById("hero-bg").style.backgroundImage = `url('${images[index]}')`;
+        }, 5000);
+      </script>
+    </section>
+
+    <!-- INTRO / TAGLINE -->
+    <section class="text-center py-10 bg-blue-50">
+      <h3 class="text-2xl font-semibold text-gray-800">
+        Semua kebutuhan kebersihan dan kenyamanan dalam satu platform!
+      </h3>
+    </section>
+  
+
+<!-- --- TAMBAHKAN BAGIAN BARU MULAI DI SINI --- -->
+<style>
+  .why-trust-us {
+    background-color: #1a2b4a;
+    color: white;
+    padding: 60px 5%;
+    text-align: center;
+  }
+
+  .why-trust-us h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .why-trust-us p {
+    color: #ccc;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stats-card {
+    background: rgba(255,255,255,0.08);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    max-width: 400px;
+    margin: 0 auto 50px;
+    text-align: center;
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+  }
+
+  .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .stats-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .stats-badge {
+    background: #ffc107;
+    color: #000;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+  }
+
+  .stats-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffc107;
+    margin: 20px 0;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  }
+
+  .stats-label {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+
+  .stats-quote {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 10px;
+    font-style: italic;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+
+  .quote-author {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-top: 5px;
+  }
+
+  .view-more-btn {
+    display: inline-block;
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+  }
+
+  .view-more-btn:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .pie-chart-container {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin: 20px auto;
+  }
+
+  .pie-chart-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .pie-bg {
+    fill: none;
+    stroke: #333;
+    stroke-width: 12;
+  }
+
+  .pie-fill {
+    fill: none;
+    stroke: #ffc107;
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 339.29;
+    stroke-dashoffset: 339.29;
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+
+  .pie-fill.animate {
+    stroke-dashoffset: 13.57; /* 96% */
+  }
+
+  .pie-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffc107;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .feature-card {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    text-align: left;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 15px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+    transform: scale(1.1);
+  }
+
+  .feature-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .feature-desc {
+    font-size: 0.9rem;
+    color: #ddd;
+  }
+
+  .testimonials {
+    background-color: #f0f5fa;
+    padding: 60px 5%;
+    text-align: center;
+  }
+
+  .testimonials h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .testimonials p {
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .testimonial-wrapper {
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+  }
+
+  .testimonial-carousel {
+    display: flex;
+    animation: scroll 30s linear infinite;
+    gap: 30px;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .testimonial-card {
+    width: 300px;
+    height: 300px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    text-align: left;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .testimonial-quote {
+    font-size: 1.05rem;
+    font-style: italic;
+    margin-bottom: 20px;
+    position: relative;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+    flex-grow: 1;
+  }
+
+  .testimonial-quote::before {
+    content: '"';
+    font-size: 2.5rem;
+    color: #0056b3;
+    opacity: 0.3;
+    position: absolute;
+    top: -15px;
+    left: -10px;
+  }
+
+  .testimonial-author {
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+  }
+
+  .testimonial-role {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .stars {
+    color: #ffc107;
+    font-size: 1.1rem;
+    margin-top: 10px;
+  }
+
+  .testimonial-form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 40px auto 0;
+    text-align: center;
+  }
+
+  .testimonial-form-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+  }
+
+  .rating input { display: none; }
+
+  .rating label {
+    font-size: 1.8rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s;
+    direction: ltr;
+  }
+
+  .rating input:checked ~ label,
+  .rating label:hover,
+  .rating label:active {
+    color: #ffc107;
+  }
+
+  .testimonial-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .submit-btn {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .submit-btn:hover {
+    background-color: #003d82;
+  }
+</style>
+
+<section class="why-trust-us" id="why-trust-us">
+  <h2>Mengapa SideJobBanda Dipercaya oleh Warga Banda Aceh?</h2>
+  <p>Platform kami didesain untuk memberikan rasa aman bagi klien sekaligus peluang penghasilan tambahan yang stabil bagi Mitra. Kami beroperasi dengan standar nasional namun fokus pada karakter lokal Banda Aceh.</p>
+
+  <!-- Stats Card with Animation -->
+  <div class="stats-card" id="stats-card">
+    <div class="stats-header">
+      <span class="stats-title">STATISTIK 2025</span>
+      <span class="stats-badge">RESPONS < 15 MENIT</span>
+    </div>
+
+    <!-- SVG Pie Chart -->
+    <div class="pie-chart-container">
+      <svg class="pie-chart-svg" viewBox="0 0 120 120">
+        <circle class="pie-bg" cx="60" cy="60" r="54"></circle>
+        <circle class="pie-fill" cx="60" cy="60" r="54"></circle>
+      </svg>
+      <div class="pie-center">96%</div>
+    </div>
+
+    <div class="stats-number" id="stats-number">{{ satisfaction_rate }}%</div> <!-- Gunakan data dari Flask -->
+    <div class="stats-label">Klien puas dengan pengalaman pertama mereka</div>
+
+    <div class="stats-quote">
+      “Supir profesional dan komunikatif. Sangat membantu saat saya ada kunjungan bisnis ke luar kota.”
+      <div class="quote-author">— Rahmat, Banda Aceh | Klien pertama SideJobBanda</div>
+    </div>
+
+    <a href="#testimonials" class="view-more-btn">Lihat Testimoni Lain →</a>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="features-grid">
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/verif.png') }}" alt="100% Mitra Terverifikasi" class="feature-icon">
+      <h3 class="feature-title">100% Mitra Terverifikasi</h3>
+      <p class="feature-desc">Seleksi dokumen, pelatihan layanan, dan pengecekan latar belakang yang ketat.</p>
+    </div>
+
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/jadwal.png') }}" alt="Jadwal Fleksibel" class="feature-icon">
+      <h3 class="feature-title">Jadwal Fleksibel</h3>
+      <p class="feature-desc">Butuh bantuan mendadak? Pesan layanan dengan Jadwal Fleksibel, mulai dari part-time hingga harian penuh.</p>
+    </div>
+
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/money.png') }}" alt="Harga Transparan" class="feature-icon">
+      <h3 class="feature-title">Harga Transparan</h3>
+      <p class="feature-desc">Semua biaya terlihat di awal. Tanpa ongkos terselubung, tanpa negosiasi melelahkan.</p>
+    </div>
+
+    <div class="feature-card">
+      <img src="{{ url_for('static', filename='images/icon/centang.png') }}" alt="Garansi Kepuasan Pelanggan" class="feature-icon">
+      <h3 class="feature-title">Garansi Kepuasan Pelanggan</h3>
+      <p class="feature-desc">Jika hasil tidak sesuai dengan harapan, kami siap memberikan kompensasi sesuai dengan syarat dan ketentuan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+  <h2>Cerita Nyata dari Klien dan Mitra di Banda Aceh</h2>
+  <p>Kami mengumpulkan masukan setiap selesai layanan untuk memastikan mutu SideJobBanda selalu di atas standar.</p>
+
+  <div class="testimonial-wrapper">
+    <div class="testimonial-carousel">
+      {% for testimonial in testimonials %}
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            {{ testimonial.content }}
+          </div>
+          <div class="testimonial-author">{{ testimonial.name }}</div>
+          <div class="testimonial-role">{{ testimonial.role or 'Klien' }}</div>
+          <div class="stars">
+            {% for i in range(5) %}
+              {% if i < testimonial.rating %}★{% else %}☆{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+      <!-- Tambahkan ulang testimonial untuk loop -->
+      {% for testimonial in testimonials %}
+        <div class="testimonial-card">
+          <div class="testimonial-quote">
+            {{ testimonial.content }}
+          </div>
+          <div class="testimonial-author">{{ testimonial.name }}</div>
+          <div class="testimonial-role">{{ testimonial.role or 'Klien' }}</div>
+          <div class="stars">
+            {% for i in range(5) %}
+              {% if i < testimonial.rating %}★{% else %}☆{% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+<!-- LAYANAN POPULER -->
+<section id="services" class="bg-[#f1f6fa] py-16 px-10 text-center relative">
+  <style>
+    .perspective {
+      perspective: 1000px;
+    }
+    .transform-style-preserve-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      position: absolute;
+      inset: 0;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .group:hover .group-hover\:rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+  </style>
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+    Layanan Populer yang Paling Banyak Dipesan
+  </h2>
+  <p class="text-gray-600 mb-10">
+    Semua layanan tersedia on-demand maupun berlangganan mingguan. Pilih paket, jadwalkan,
+    dan dapatkan mitra dengan rating tinggi di area Banda Aceh.
+  </p>
+
+  <!-- GRID LAYANAN -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    {% set services = [
+    {"icon": "fa-house", "title": "Home Cleaning", "desc": "Bersihkan rumah atau kos dengan standar higienis.", "back": "Pembersihan profesional, bisa pilih harian atau mingguan.", "link": "/login"},
+    {"icon": "fa-shirt", "title": "Nyuci & Gosok", "desc": "Laundry dan setrika cepat, pakaian rapi kapan saja.", "back": "Layanan laundry express, antar-jemput tersedia.", "link": "/login"},
+    {"icon": "fa-baby", "title": "Babysitter", "desc": "Fokus pada keamanan dan kenyamanan anak Anda.", "back": "Tenaga babysitter berpengalaman dan tersertifikasi.", "link": "/login"},
+    {"icon": "fa-car", "title": "Supir Pribadi", "desc": "Supir harian untuk acara keluarga atau bisnis.", "back": "Supir berpengalaman dan terpercaya siap menemani perjalanan Anda.", "link": "/login"},
+    {"icon": "fa-box", "title": "Antar Jemput Barang", "desc": "Kirim barang dalam kota cepat dan aman.", "back": "Mitra kami siap antar jemput ke seluruh area Banda Aceh.", "link": "/login"},
+    {"icon": "fa-screwdriver-wrench", "title": "Service", "desc": "Benerin AC, kulkas, dan peralatan rumah lainnya.", "back": "Teknisi profesional siap datang ke rumah Anda.", "link": "/login"}
+    ] %}
+
+
+    {% for service in services %}
+    <div class="group relative w-full h-56 cursor-pointer perspective" onclick="window.location.href='{{ service.link }}'">
+      <div class="relative w-full h-full transition-transform duration-700 transform transform-style-preserve-3d group-hover:rotate-y-180">
+        
+        <!-- FRONT -->
+        <div class="absolute inset-0 bg-white rounded-2xl shadow-md flex flex-col items-center justify-center p-6 backface-hidden">
+          <div class="text-3xl mb-3 text-blue-600">
+            <i class="fa-solid {{ service.icon }}"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-1">{{ service.title }}</h3>
+          <p class="text-gray-600 text-sm text-center">
+            {{ service.desc }}
+          </p>
+        </div>
+        
+        <!-- BACK -->
+        <div class="absolute inset-0 bg-blue-600 text-white rounded-2xl flex flex-col items-center justify-center p-6 rotate-y-180 backface-hidden">
+          <p class="text-sm mb-4 text-center">
+            {{ service.back }}
+          </p>
+          <a href="{{ service.link }}"
+            class="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+            Login untuk lihat layanan
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+    <!-- AI ASSIST SECTION -->
+    <section id="ai-assist" class="bg-blue-50 py-20 px-10">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between"
+      >
+        <div class="flex-1 mb-10 md:mb-0">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            AI Assist — Asisten Virtualmu
+          </h2>
+          <p class="text-gray-700 text-lg mb-6">
+            Butuh bantuan cepat? Gunakan fitur AI Assist kami untuk memesan
+            layanan, menanyakan harga, atau sekadar mendapatkan rekomendasi.
+          </p>
+          <a
+            href="{{ url_for('login') }}"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+            >login untuk merasakan pengalaman</a
+          >
+        </div>
+        <div class="flex-1 flex justify-center">
+          <img
+            src="{{ url_for('static', filename='images/ai-assist.png') }}"
+            alt="AI Assist"
+            class="max-w-md w-full"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-20">
+      <div
+        class="max-w-6xl mx-auto px-10 flex flex-col md:flex-row justify-between space-y-6 md:space-y-0"
+      >
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-2">SideJobBanda</h3>
+          <p class="text-gray-400 max-w-sm">
+            Solusi cerdas untuk kebutuhan kebersihan, laundry, dan asisten
+            virtualmu.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-3">Navigasi</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="hover:text-white">Beranda</a></li>
+            <li><a href="#services" class="hover:text-white">Layanan</a></li>
+            <li><a href="#ai-assist" class="hover:text-white">AI Assist</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-3">Hubungi Kami</h4>
+          <p>Email: abdi24@mhs.ac.id</p>
+          <p>Telepon: +62 877-7086-7357</p>
+        </div>
+      </div>
+
+      <div class="text-center text-gray-500 mt-10 border-t border-gray-700 pt-4">
+        © 2025 FlashAuth. All rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>

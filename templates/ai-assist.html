@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Assist</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, rgba(10,39,67,0.9), rgba(15,50,85,0.8));
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ===== HEADER ===== */
+    .ai-assist-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 15px 40px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .ai-assist-header .logo {
+      height: 50px;
+      width: 50px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      color: #00e6ff;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .header-text p {
+      color: #ddd;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .back-btn {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 14px;
+      background: #009688;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #00796b;
+    }
+
+    /* ===== CHAT BOX AREA ===== */
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      width: 90%;
+      max-width: 600px;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      margin-top: 40px;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      gap: 10px;
+    }
+
+    .message {
+      max-width: 75%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      display: inline-block;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .user {
+      background: #007bff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .bot {
+      background: #009688;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .input-area {
+      display: flex;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 14px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    button {
+      background: #00bcd4;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #009fb3;
+    }
+
+    /* Scrollbar custom */
+    .chat-box::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chat-box::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="ai-assist-header">
+    <img src="{{ url_for('static', filename='images/vector.svg') }}" alt="Logo" class="h:115 w:57">
+    <div class="header-text">
+      <h1>SideJobBanda.</h1>
+      <p>Solusi Praktis, Pekerja Terpercaya di Banda Aceh</p>
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="back-btn">← Kembali</a>
+  </header>
+
+  <!-- CHAT AREA -->
+  <div class="container">
+    <div class="chat-box" id="chatBox">
+      <div class="message bot">haloo, ini memu asistent kamu, siap melayanimu dimana saja dan kapan saja!!</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Ketik pesan di sini...">
+      <button onclick="sendMessage()">Kirim</button>
+    </div>
+  </div>
+
+    <script>
+    async function sendMessage() {
+        const chatBox = document.getElementById('chatBox');
+        const input = document.getElementById('userInput');
+        const text = input.value.trim();
+
+        if (text === '') return;
+
+        // tampilkan pesan user
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.textContent = text;
+        chatBox.appendChild(userMsg);
+        input.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // kirim ke backend Flask
+        const formData = new FormData();
+        formData.append('user_input', text);
+
+        // tampilkan loading
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot';
+        botMsg.textContent = '⏳ Memu sedang berpikir...';
+        chatBox.appendChild(botMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        try {
+        const response = await fetch("/ai-assist", {
+            method: "POST",
+            body: formData
+        });
+        const reply = await response.text();
+
+        botMsg.textContent = reply;
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        } catch (error) {
+        botMsg.textContent = "⚠️ Terjadi kesalahan, coba lagi nanti.";
+        }
+    }
+    </script>
+
+</body>
+</html>

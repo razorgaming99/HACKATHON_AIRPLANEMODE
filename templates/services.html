@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Jasa | SideJobBanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Gaya dasar dan pemformatan teks */
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #f7f7f7; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 40px; 
+        }
+        h1 { margin-bottom: 30px; font-size: 32px; color: #333; }
+        
+        /* Grid Container (Ditingkatkan ukurannya) */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 35px; 
+            max-width: 1200px; /* Ditingkatkan untuk memberi ruang lebih */
+        }
+        
+        /* Card Styling (Ditingkatkan ukurannya) */
+        .card {
+            background-color: white;
+            border-radius: 15px; 
+            padding: 30px; 
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        /* Efek Hover Modern */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card video { 
+            width: 100%; 
+            max-width: 180px; /* Ditingkatkan agar video lebih besar */
+            height: auto; 
+            margin-bottom: 20px; 
+            border-radius: 4px;
+        }
+        
+        /* Style Teks Layanan */
+        .card p { 
+            font-size: 20px; 
+            font-weight: 700; 
+            margin-bottom: 25px; 
+        }
+        
+        /* Style Tombol Order Jasa */
+        .order-link {
+            text-decoration: none;
+            background-color: #FFC107;
+            color: #1F3A60;
+            padding: 10px 25px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: 700;
+            transition: background-color 0.2s;
+        }
+        .order-link:hover {
+            background-color: #e0ac00;
+        }
+
+        /* Responsif */
+        @media (max-width: 1200px) {
+            .grid-container {
+                max-width: 900px;
+            }
+        }
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 600px;
+                gap: 25px;
+            }
+            .card p {
+                font-size: 18px;
+            }
+            .card video {
+                max-width: 150px;
+            }
+        }
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Layanan Jasa</h1>
+    <div class="absolute top-24 left-10 flex items-center space-x-2">
+        <a href="{{ url_for('dashboard') }}" 
+            class="flex items-center justify-center w-10 h-10 bg-black rounded-md hover:bg-gray-800 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                class="w-5 h-5 text-white" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor" 
+                stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+        <span class="text-gray-700 font-medium">Kembali</span>
+    </div>
+
+    <div class="grid-container">
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Man sweeping floor.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Home Cleaning</p>
+            <a href="{{ url_for('detail_pemesanan', service='Home_Cleaning') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Car.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Supir pribadi</p>
+            <a href="{{ url_for('detail_pemesanan', service='Supir_Pribadi') }}" class="order-link">Order Jasa</a>
+        </div>
+        
+        <div class="card">
+            <video src="{{ url_for('static', filename='Girl With A Baby Carriage.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Babysitter</p>
+            <a href="{{ url_for('detail_pemesanan', service='Babysitter') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Home delivery.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Antar Jemput Barang</p>
+            <a href="{{ url_for('detail_pemesanan', service='Antar_Jemput_Barang') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Woman folding clothes.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Cuci & Gosok</p>
+            <a href="{{ url_for('detail_pemesanan', service='Cuci_Gosok') }}" class="order-link">Order Jasa</a>
+        </div>
+        
+        <div class="card">
+            <video src="{{ url_for('static', filename='Plumber Water Pipe Repair Service.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Service</p>
+            <a href="{{ url_for('detail_pemesanan', service='Service') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Professor solving mathematical equation.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Education Service</p>
+            <a href="{{ url_for('detail_pemesanan', service='Education_Service') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Bathing cat in tub.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Pet Care</p>
+            <a href="{{ url_for('detail_pemesanan', service='Pet_Care') }}" class="order-link">Order Jasa</a>
+        </div>
+
+        <div class="card">
+            <video src="{{ url_for('static', filename='Make Up.mp4') }}" autoplay loop muted playsinline></video>
+            <p>Beauty Services</p>
+            <a href="{{ url_for('detail_pemesanan', service='Beauty_Services') }}" class="order-link">Order Jasa</a>
+        </div>
+
+    </div>
+</body>
+</html>

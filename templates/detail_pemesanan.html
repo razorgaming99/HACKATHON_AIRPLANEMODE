@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detail Pesanan | SideJobBanda</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+:root {
+    --dark-blue: #1A237E; 
+    --card-light: #EBEBEB; 
+    --light-grey: #F0F0F0; 
+    --white: #FFFFFF;
+    --text-dark: #333333;
+    --text-label: #555555;
+    --radius-default: 8px;
+    --yellow-accent: #FFC107;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; font-family:'Poppins', sans-serif; }
+
+body {
+    background-color: var(--light-grey);
+    display:flex; flex-direction:column; align-items:center;
+    padding:50px 20px;
+}
+
+h1 {
+    color: var(--text-dark); font-size:28px; margin-bottom:30px; font-weight:600;
+}
+
+.container {
+    background-color: var(--dark-blue); color: var(--white);
+    padding: 20px 30px 40px; border-radius:16px;
+    width:100%; max-width:600px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    opacity:0; transform:translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.container.loaded { opacity:1; transform:translateY(0); }
+
+.header-bar { display:flex; align-items:center; margin-bottom:25px; height:30px; }
+.back-button { font-size:24px; color: var(--white); cursor:pointer; transition: color 0.3s; }
+
+.card { background-color: var(--white); color: var(--text-dark);
+    padding:20px; border-radius:var(--radius-default);
+    margin-bottom:20px; box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card-pesanan { background-color: var(--white); }
+
+.pesanan-grid { display:flex; justify-content:space-between; align-items:center; }
+
+.pesanan-detail .label { font-size:15px; font-weight:500; line-height:1.6; }
+.pesanan-detail .value { font-size:16px; font-weight:700; margin-bottom:5px; }
+
+.pesanan-harga .price { font-size:20px; font-weight:700; color:var(--text-dark); }
+
+.card-pengguna { padding:25px 20px; background-color: var(--card-light); }
+
+.input-row { display:flex; gap:15px; margin-bottom:15px; flex-wrap:wrap; }
+.input-group { flex:1; display:flex; flex-direction:column; min-width:0; }
+.input-group.full-width { flex:none; width:100%; }
+
+label { font-size:14px; font-weight:600; margin-bottom:5px; color:var(--text-dark); }
+
+input[type="text"], input[type="email"], input[type="tel"], textarea {
+    background-color: var(--white); border:1px solid #F1F6FA; border-radius:4px;
+    padding:10px; font-size:14px; color:var(--text-dark); cursor:text; width:100%; box-sizing:border-box;
+}
+
+textarea { resize:none; min-height:80px; padding-top:15px; }
+
+.finish-button-group { display:flex; justify-content:flex-end; margin-top:25px; }
+
+.order-button {
+    background-color: var(--yellow-accent); color: var(--dark-blue);
+    border:none; padding:12px 30px; border-radius:var(--radius-default);
+    font-size:16px; font-weight:600; cursor:pointer; width:auto;
+    transition: transform 0.2s, opacity 0.2s;
+    box-shadow:0 4px 10px rgba(255,193,7,0.4);
+}
+
+.order-button:hover { transform:translateY(-2px); opacity:0.9; }
+
+/* Responsive */
+@media (max-width:500px){
+    .container{padding:20px;}
+    .input-row{flex-direction:column; gap:0;}
+    .input-group{margin-bottom:15px;}
+    .input-group:last-child{margin-bottom:0;}
+    .pesanan-grid{flex-direction:column; align-items:flex-start;}
+    .pesanan-harga{margin-top:10px;}
+    .order-button{width:100%;}
+}
+</style>
+</head>
+
+<body>
+<h1>Detail Pesanan</h1>
+
+<div class="container" id="detailContainer">
+    <div class="header-bar">
+        <i id="backButton" class="fas fa-arrow-left back-button" title="Kembali"></i>
+    </div>
+
+    <div class="card card-pesanan">
+        <div class="pesanan-grid">
+            <div class="pesanan-detail">
+                <p class="value" id="displayedLayanan">{{ service_data.name }}</p>
+                <p class="label">Waktu : <span id="displayedTimeDate">Waktu Belum Dipilih</span></p>
+                <p class="label">Gender : <span id="displayedGender">{{ service_data.gender_default }}</span></p>
+                <p class="value price" id="pesananHarga">{{ service_data.price }}</p>
+            </div>
+            <div class="pesanan-harga">
+                <p class="value price" id="pesananHarga">Rp. 100.000</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-pengguna">
+        <div class="input-row">
+            <div class="input-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="namaLengkapInput" placeholder="Masukkan Nama Lengkap">
+            </div>
+            <div class="input-group">
+                <label>No. WhatsApp</label>
+                <input type="tel" id="waInput" placeholder="08xxxxxx">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label>Email</label>
+                <input type="email" id="emailInput" placeholder="Masukkan Email">
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group full-width">
+                <label>Alamat</label>
+                <textarea id="alamatInput" placeholder="Masukkan alamat lengkap Anda"></textarea>
+            </div>
+        </div>
+        <div class="finish-button-group">
+            <button id="finishButton" class="order-button">Selesai</button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('detailContainer');
+    const backButton = document.getElementById('backButton');
+    
+    const displayedLayanan = document.getElementById('displayedLayanan');
+    const displayedTimeDate = document.getElementById('displayedTimeDate');
+    const displayedGender = document.getElementById('displayedGender');
+    const pesananHarga = document.getElementById('pesananHarga');
+    const finishButton = document.getElementById('finishButton');
+    
+    container.classList.add('loaded');
+
+    backButton.addEventListener('click', () => window.history.back());
+
+    const layanan = localStorage.getItem('pesananLayanan') || 'Home Cleaning';
+    const gender = localStorage.getItem('pesananGender') || 'Wanita';
+    const date = localStorage.getItem('pesananTanggal');
+    const time = localStorage.getItem('pesananWaktu');
+    const harga = localStorage.getItem('pesananHarga') || 'Rp. 100.000';
+
+    displayedLayanan.textContent = layanan;
+    displayedGender.textContent = gender;
+    pesananHarga.textContent = harga;
+    
+    if(date && time){
+        const dateParts = date.split('-');
+        const formattedDate = `${dateParts[2]} - ${dateParts[1]} - ${dateParts[0]}`;
+        displayedTimeDate.textContent = `${time} - ${formattedDate}`;
+    } else {
+        displayedTimeDate.textContent = 'Waktu Belum Dipilih';
+    }
+
+    finishButton.addEventListener('click', () => {
+        alert('Pesanan dikonfirmasi! Validasi form akan dilakukan di sini.');
+    });
+});
+</script>
+
+</body>
+</html>

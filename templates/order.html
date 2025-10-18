@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Jasa - SideJobBanda</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+  <div class="order-container">
+    <!-- HEADER -->
+    <header class="order-header">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="logo">
+      <div class="header-text">
+        <h1>SideJobBanda.</h1>
+        <p>Solusi Praktis, Pekerja Terpercaya di Banda Aceh</p>
+      </div>
+      <a href="{{ url_for('dashboard') }}" class="back-btn">← Kembali</a>
+    </header>
+
+    <!-- TITLE -->
+    <h2 class="order-title">Order Jasa</h2>
+
+    <!-- FORM -->
+    <form action="{{ url_for('order_jasa', service='driver') }}" method="POST" class="order-form">
+      <div class="form-left">
+        <label>Layanan yang Diperlukan</label>
+        <input type="text" name="layanan" placeholder="Contoh: Supir Pribadi" required>
+
+        <label>Jam Operasional</label>
+        <input type="text" name="jam" value="07:00 - 22:00" readonly>
+
+        <label>Harga yang Ditawarkan</label>
+        <input type="text" name="harga" placeholder="Rp. 100.000" required>
+      </div>
+
+      <div class="form-right">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" required>
+
+        <label>Pilih Gender Pekerja</label>
+        <select name="gender" required>
+          <option value="">Pilih</option>
+          <option value="laki-laki">Laki-laki</option>
+          <option value="perempuan">Perempuan</option>
+        </select>
+
+        <button type="submit" class="btn-submit">Order Jasa</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

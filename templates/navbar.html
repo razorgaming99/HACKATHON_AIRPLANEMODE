@@ -1,0 +1,65 @@
+<!-- NAVBAR -->
+<nav class="flex items-center justify-between px-10 py-3 shadow-sm fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50">
+  <!-- Logo -->
+  <div class="flex-1">
+    <div class="flex items-center space-x-3">
+      <img src="{{ url_for('static', filename='images/vector.svg') }}" alt="Logo" class="h-8 w-auto" />
+      <h1 class="text-lg font-bold text-gray-900">SideJobBanda.</h1>
+    </div>
+  </div>
+
+  <!-- Menu Tengah -->
+  <div class="hidden md:flex space-x-6 text-sm">
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('dashboard') }}" class="hover:text-blue-600 transition">Beranda</a>
+    {% else %}
+    <a href="{{ url_for('index') }}" class="hover:text-blue-600 transition">Beranda</a>
+    {% endif %}
+    <a href="#services" class="hover:text-blue-600 transition">Layanan</a>
+    <a href="#ai-assist" class="hover:text-blue-600 transition">AI Assist</a>
+  </div>
+
+  <!-- Bagian Kanan -->
+  <div class="flex-1 flex justify-end">
+  <div class="relative">
+    {% if current_user.is_authenticated %}
+      <div class="flex items-center space-x-3">
+        <span class="text-gray-700 font-medium">👋 Halo, {{ current_user.username }}</span>
+        <button id="menuButton" class="p-2 rounded-full hover:bg-gray-100 focus:outline-none text-xl">⋮</button>
+      </div>
+
+      <!-- Menu Dropdown -->
+      <div id="menuDropdown"
+           class="absolute right-0 mt-2 w-44 bg-white rounded-xl shadow-lg border hidden">
+        <a href="{{ url_for('profile') }}" class="block px-4 py-2 hover:bg-gray-50">Profil</a>
+        <a href="{{ url_for('layanan') }}" class="block px-4 py-2 hover:bg-gray-50">Layanan</a>
+        <a href="{{ url_for('ai_assist') }}" class="block px-4 py-2 hover:bg-gray-50">AI Assist</a>
+        <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-red-500 hover:bg-gray-50">Logout</a>
+      </div>
+    {% else %}
+      <a href="{{ url_for('login') }}"
+         class="px-4 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition text-sm">
+        Login
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+<!-- SCRIPT DROPDOWN -->
+<script>
+  const menuButton = document.getElementById("menuButton");
+  const menuDropdown = document.getElementById("menuDropdown");
+
+  if (menuButton && menuDropdown) {
+    menuButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      menuDropdown.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!menuDropdown.contains(event.target) && !menuButton.contains(event.target)) {
+        menuDropdown.classList.add("hidden");
+      }
+    });
+  }
+</script>

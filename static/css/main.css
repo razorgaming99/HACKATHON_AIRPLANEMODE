@@ -1,0 +1,89 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #f9fafc;
+  margin: 0;
+  padding: 0;
+}
+
+.order-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 70px;
+  height: auto;
+}
+
+.header-text h1 {
+  color: #006CBC;
+  margin: 0;
+}
+
+.header-text p {
+  color: #444;
+  font-size: 14px;
+}
+
+.back-btn {
+  background: #1f3a60;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+.order-title {
+  text-align: center;
+  font-size: 28px;
+  color: #1f3a60;
+  margin-bottom: 20px;
+}
+
+.order-form {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.order-form label {
+  font-weight: bold;
+  color: #1f3a60;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.order-form input,
+.order-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.btn-submit {
+  width: 100%;
+  background: #ffc107;
+  color: #1f3a60;
+  font-weight: bold;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background: #e0a800;
+}

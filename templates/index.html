@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SideJobBanda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a2e0e6df4a.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="bg-white text-gray-900 font-sans">
+    {% include 'navbar.html' %}
+
+        <section 
+        id="home"
+        class="relative h-screen flex items-center justify-center text-center text-white overflow-hidden"
+      >
+        <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000"
+          style="background-image: url('{{ url_for('static', filename='images/bg1.jpg') }}');">
+        </div>
+
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+
+        <div class="relative z-10 max-w-3xl px-6">
+          <h2 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            Bebaskan Waktu Anda. <br />
+            Serahkan Tugas Rumah Tangga pada Ahlinya.
+          </h2>
+          <p class="text-lg mb-8 text-gray-200">
+            Satu platform untuk memesan tenaga profesional terverifikasi, dari 
+            bersih-bersih hingga supir pribadi. SideJobBanda memastikan layanan 
+            higienis, aman, dan transparan.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="#services" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full transition">Lihat Layanan</a>
+            <a href="#ai-assist" class="border border-white hover:bg-white hover:text-blue-700 font-semibold px-6 py-2 rounded-full transition">AI Assist</a>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        const images = [
+          "{{ url_for('static', filename='images/bg1.jpg') }}",
+          "{{ url_for('static', filename='images/bg2.jpg') }}",
+          "{{ url_for('static', filename='images/bg3.jpg') }}"
+        ];
+        let index = 0;
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          document.getElementById("hero-bg").style.backgroundImage = `url('${images[index]}')`;
+        }, 5000);
+      </script>
+    </section>
+
+    <!-- INTRO / TAGLINE -->
+    <section class="text-center py-10 bg-blue-50">
+      <h3 class="text-2xl font-semibold text-gray-800">
+        Semua kebutuhan kebersihan dan kenyamanan dalam satu platform!
+      </h3>
+    </section>
+
+<!-- LAYANAN POPULER -->
+<section id="services" class="bg-[#f1f6fa] py-16 px-10 text-center relative">
+  <style>
+    .perspective {
+      perspective: 1000px;
+    }
+    .transform-style-preserve-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      position: absolute;
+      inset: 0;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    .group:hover .group-hover\:rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+  </style>
+
+  <h2 class="text-2xl md:text-3xl font-bold mb-4 text-gray-900">
+    Layanan Populer yang Paling Banyak Dipesan
+  </h2>
+  <p class="text-gray-600 mb-10">
+    Semua layanan tersedia on-demand maupun berlangganan mingguan. Pilih paket, jadwalkan,
+    dan dapatkan mitra dengan rating tinggi di area Banda Aceh.
+  </p>
+
+  <!-- GRID LAYANAN -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    {% set services = [
+    {"icon": "fa-house", "title": "Home Cleaning", "desc": "Bersihkan rumah atau kos dengan standar higienis.", "back": "Pembersihan profesional, bisa pilih harian atau mingguan.", "link": "/login"},
+    {"icon": "fa-shirt", "title": "Nyuci & Gosok", "desc": "Laundry dan setrika cepat, pakaian rapi kapan saja.", "back": "Layanan laundry express, antar-jemput tersedia.", "link": "/login"},
+    {"icon": "fa-baby", "title": "Babysitter", "desc": "Fokus pada keamanan dan kenyamanan anak Anda.", "back": "Tenaga babysitter berpengalaman dan tersertifikasi.", "link": "/login"},
+    {"icon": "fa-car", "title": "Supir Pribadi", "desc": "Supir harian untuk acara keluarga atau bisnis.", "back": "Supir berpengalaman dan terpercaya siap menemani perjalanan Anda.", "link": "/login"},
+    {"icon": "fa-box", "title": "Antar Jemput Barang", "desc": "Kirim barang dalam kota cepat dan aman.", "back": "Mitra kami siap antar jemput ke seluruh area Banda Aceh.", "link": "/login"},
+    {"icon": "fa-screwdriver-wrench", "title": "Service", "desc": "Benerin AC, kulkas, dan peralatan rumah lainnya.", "back": "Teknisi profesional siap datang ke rumah Anda.", "link": "/login"}
+    ] %}
+
+
+    {% for service in services %}
+    <div class="group relative w-full h-56 cursor-pointer perspective" onclick="window.location.href='{{ service.link }}'">
+      <div class="relative w-full h-full transition-transform duration-700 transform transform-style-preserve-3d group-hover:rotate-y-180">
+        
+        <!-- FRONT -->
+        <div class="absolute inset-0 bg-white rounded-2xl shadow-md flex flex-col items-center justify-center p-6 backface-hidden">
+          <div class="text-3xl mb-3 text-blue-600">
+            <i class="fa-solid {{ service.icon }}"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-1">{{ service.title }}</h3>
+          <p class="text-gray-600 text-sm text-center">
+            {{ service.desc }}
+          </p>
+        </div>
+        
+        <!-- BACK -->
+        <div class="absolute inset-0 bg-blue-600 text-white rounded-2xl flex flex-col items-center justify-center p-6 rotate-y-180 backface-hidden">
+          <p class="text-sm mb-4 text-center">
+            {{ service.back }}
+          </p>
+          <a href="{{ service.link }}"
+            class="px-4 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+            Login untuk lihat layanan
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+  {% include 'whytrust.html' %}
+
+    <!-- AI ASSIST SECTION -->
+    <section id="ai-assist" class="bg-blue-50 py-20 px-10">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between"
+      >
+        <div class="flex-1 mb-10 md:mb-0">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            AI Assist — Asisten Virtualmu
+          </h2>
+          <p class="text-gray-700 text-lg mb-6">
+            Butuh bantuan cepat? Gunakan fitur AI Assist kami untuk memesan
+            layanan, menanyakan harga, atau sekadar mendapatkan rekomendasi.
+          </p>
+          <a
+            href="{{ url_for('login') }}"
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+            >login untuk merasakan pengalaman</a
+          >
+        </div>
+        <div class="flex-1 flex justify-center">
+          <img
+            src="{{ url_for('static', filename='images/ai-assist.png') }}"
+            alt="AI Assist"
+            class="max-w-md w-full"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 py-10 mt-20">
+      <div
+        class="max-w-6xl mx-auto px-10 flex flex-col md:flex-row justify-between space-y-6 md:space-y-0"
+      >
+        <div>
+          <h3 class="text-2xl font-bold text-white mb-2">SideJobBanda</h3>
+          <p class="text-gray-400 max-w-sm">
+            Solusi cerdas untuk kebutuhan kebersihan, laundry, dan asisten
+            virtualmu.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-3">Navigasi</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="hover:text-white">Beranda</a></li>
+            <li><a href="#services" class="hover:text-white">Layanan</a></li>
+            <li><a href="#ai-assist" class="hover:text-white">AI Assist</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold text-white mb-3">Hubungi Kami</h4>
+          <p>Email: abdi24@mhs.ac.id</p>
+          <p>Telepon: +62 877-7086-7357</p>
+        </div>
+      </div>
+
+      <div class="text-center text-gray-500 mt-10 border-t border-gray-700 pt-4">
+        © 2025 FlashAuth. All rights reserved.
+      </div>
+    </footer>
+  </body>
+</html>
