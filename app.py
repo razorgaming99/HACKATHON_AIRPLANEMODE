@@ -246,35 +246,39 @@ def create_app():
     def ai_assist():
         if request.method == "GET":
             return render_template("ai-assist.html")
-        else:
-            user_text = request.form.get("user_input") or ""
-            image_url = request.form.get("image_url") or ""
+    
+        # Ambil input dari form
+        user_text = (request.form.get("user_input") or "").strip()
+        image_url = (request.form.get("image_url") or "").strip()
+    
+        # Buat prompt untuk AI
+        prompt_text = f"{user_text}. Tolong balas dalam bahasa Indonesia."
+        content_list = [{"type": "text", "text": prompt_text}]
+        if image_url:
+            content_list.append({"type": "image_url", "image_url": {"url": image_url}})
+    
+        answer = "⚠️ Memu sedang sibuk, coba beberapa saat lagi ya..."
+    
+        try:
+            completion = client.chat.completions.create(
+                model="openai/gpt-oss-20b:free",
+                messages=[{"role": "user", "content": content_list}]
+            )
+            msg = completion.choices[0].message
+            if isinstance(msg, dict):
+                answer = msg.get("content", "⚠️ Tidak ada respons dari AI.")
+            else:
+                answer = str(msg)
+        except Exception as e:
+            print("AI ERROR:", e)
+            if "Rate limit" in str(e):
+                answer = "Batas harian model gratis sudah tercapai. Tambahkan kredit atau coba besok ya!"
+            else:
+                answer = "Terjadi kesalahan internal pada AI."
+    
+        # Kembalikan sebagai plain text
+        return answer, 200, {"Content-Type": "text/plain; charset=utf-8"}
 
-            prompt_text = f"{user_text}. Tolong balas dalam bahasa Indonesia."
-            content_list = [{"type": "text", "text": prompt_text}]
-            if image_url.strip():
-                content_list.append({"type": "image_url", "image_url": {"url": image_url}})
-
-            answer = "⚠️ Memu sedang sibuk, coba beberapa saat lagi ya..."
-
-            try:
-                completion = client.chat.completions.create(
-                    model="openai/gpt-oss-20b:free",
-                    messages=[{"role": "user", "content": content_list}]
-                )
-                msg = completion.choices[0].message
-                if isinstance(msg, dict):
-                    answer = msg.get("content", "⚠️ Tidak ada respons dari AI.")
-                else:
-                    answer = str(msg)
-            except Exception as e:
-                print("AI ERROR:", e)
-                if "Rate limit" in str(e):
-                    answer = "Batas harian model gratis sudah tercapai. Tambahkan kredit atau coba besok ya!"
-                else:
-                    answer = "Terjadi kesalahan internal pada AI."
-
-            return answer, 200, {"Content-Type": "text/plain; charset=utf-8"}
 
     
     @app.route("/verify/<token>")
